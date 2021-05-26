@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script>
+    //variables**************************************************
+    var xmlHttpRequest;//定义一个变量，用于存放XMLHttpRequest对象
+    /***********************************************************/
+
+
+
+
+
+
+    //functions**********************************************************************
+    function createXMLHttpRequest(){//创建XMLHttpRequest对象的函数
+        if(window.ActiveXObject){
+            xmlHttpRequest=new ActiveXObject("Microsoft.XMLHTTP")//是ie浏览器的处理方法
+        }else if(window.XMLHttpRequest){
+            xmlHttpRequest=new XMLHttpRequest();
+        }else{
+            alert("error!");
+        }
+    }
+
+    function httpStateChange(){//响应HTTP请求状态变化的函数
+        if(xmlHttpRequest.readyState==4){//判断异步调用是否成功
+            if(xmlHttpRequest.status==200){
+                var node=document.getElementById("box");
+                node.innerText=xmlHttpRequest.responseType+":"+xmlHttpRequest.responseText;
+            }else{
+                alert("error2!");
+            }
+        }
+    }
+
+    //异步调用服务器端数据
+    function getData(name,value){
+        createXMLHttpRequest();//创建XMLHttpRequest对象
+        if(xmlHttpRequest!=null){
+            xmlHttpRequest.open("get","index.jsp",true);
+            xmlHttpRequest.responseText="text";
+            xmlHttpRequest.addEventListener("readystatechange",httpStateChange);
+            xmlHttpRequest.send(null);
+        }
+    }
+    /************************************************************************************/
+</script>
+
+
+
+<body>
+<input type="button" value="更新内容" onclick="getData()"><br>
+<div id="box">
+    内容：
+</div>
+
+</body>
+
+
+
+
+</html>

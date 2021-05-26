@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div align="center">
+  <p>ajax 请求和form无关</p>
+  <table>
+    <tr>
+      <td>姓名：</td>
+      <td><input type="text" id="name"></td>
+    </tr>
+    <tr>
+      <td>体重：</td>
+      <td><input type="text" id="W"></td>
+    </tr>
+    <tr>
+      <td>身高：</td>
+      <td><input type="text" id="H"></td>
+    </tr>
+    <tr>
+      <td colspan="2" align="center"><input type="button" value="ajax请求" id="doajax"></td>
+    </tr>
+  </table>
+  <div align="center" id="aaa"></div>
+
+
+  <script>
+    document.getElementById("doajax").onclick=function (){
+      var xhr=new XMLHttpRequest();
+
+
+      var pname=document.getElementById("name").value;
+      var ph=document.getElementById("H").value;
+      var pw=document.getElementById("W").value;
+      var param="Bmi?name="+pname+"&w="+pw+"&h="+ph;
+
+      xhr.open("get",param,true);
+      xhr.send();
+
+      xhr.onreadystatechange=function (){
+        if(xhr.readyState===4){
+          if(xhr.status==200){
+            var data=xhr.responseText;
+            document.getElementById("aaa").innerText=data;
+            console.log(data);
+          }
+        }
+      }
+
+    }
+  </script>
+</div>
+</body>
+</html>
